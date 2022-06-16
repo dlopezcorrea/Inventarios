@@ -53,7 +53,7 @@ router.post('/',body('serial').not().isEmpty().withMessage('Serial is required')
         res.status(500).send('An error has ocurred');
     }
 });
-router.put('/:inventoryId', async function(req, res){
+router.put('/:inventory', async function(req, res){
     try{
         let inventory = await Inventory.findById(req.params.inventoryId);
         if(!inventory){
@@ -78,6 +78,19 @@ router.put('/:inventoryId', async function(req, res){
             inventory = await inventory.save();
 
             res.send(inventory);
+    } catch(error){
+        console.log(error);
+        res.status(500).send('An error has ocurred');
+    }
+});
+
+router.get('/:inventoryId', async function(req, res){
+    try{
+        const inventory = await Inventory.findById(req.params.inventoryId);
+        if(!inventory){
+            return res.status(404).send('Inventory not found');
+        }
+        res.send(inventory);
     } catch(error){
         console.log(error);
         res.status(500).send('An error has ocurred');

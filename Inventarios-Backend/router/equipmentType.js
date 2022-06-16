@@ -28,7 +28,7 @@ router.post('/', async function(req, res){
         res.status(500).send('An error has ocurred');
     }
 });
-router.put('/', async function(req, res){
+router.put('/equipmentTypeId', async function(req, res){
     const equipmentType = await EquipmentType.findById(req.params.equipmentTypeId);
     if(!equipmentType){
         return res.status(400).send('Equipment Type not found');

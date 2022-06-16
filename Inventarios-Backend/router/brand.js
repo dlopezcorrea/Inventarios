@@ -28,7 +28,7 @@ router.post('/', async function(req, res){
         res.status(500).send('An error has ocurred');
     }
 });
-router.put('/', async function(req, res){
+router.put('/brandId', async function(req, res){
     const brand = await Brand.findById(req.params.brandId);
     if(!brand){
         return res.status(400).send('Brand not found');

@@ -30,7 +30,7 @@ router.post('/', async function(req, res){
     }
 });
 
-router.put('/', async function(req, res){
+router.put('/equipmentStatusId', async function(req, res){
     const equipmentStatus = await EquipmentStatus.findById(req.params.equipmentStatusId);
     if(!equipmentStatus){
         return res.status(400).send('Equipment Status not found');
