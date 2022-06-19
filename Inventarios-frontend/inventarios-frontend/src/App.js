@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Header } from "./components/ui/Header";
 import { BrandView } from "./components/brands/BrandView";
 import { TypeView } from "./components/types/TypeView";
@@ -17,7 +17,7 @@ const App = () => {
             <Route exact path='/brands' component={ BrandView }/>
             <Route exact path='/status' component={ StatusView }/>
             <Route exact path='/types' component={TypeView }/>
-            <Route exact path='inventory/edit/:inventoryId' component={ InventoryUpdate }/>
+            <Route exact path='/inventory/edit/:inventoryId' component={ InventoryUpdate }/>
             <Redirect to='/'/>
         </Switch>
     </Router>

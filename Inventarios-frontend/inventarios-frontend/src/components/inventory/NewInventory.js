@@ -7,7 +7,7 @@ import { postInventory } from '../../services/inventoryService'
 import Swal from 'sweetalert2';
 
 
-export const NewInventory = ({handleOpen, listInventory}) => {
+export const NewInventory = ({handleOpen, listInventory, handleActionEdit}) => {
 
     const[ users, setUsers ] = useState([]);
     const[ brands, setBrands ] = useState([]);

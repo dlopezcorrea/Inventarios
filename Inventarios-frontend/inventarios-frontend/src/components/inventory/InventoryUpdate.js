@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getInventoryById } from '../../services/inventoryService';
+import { getInventoryById, putInventory } from '../../services/inventoryService';
 import { getUser } from '../../services/userService'
 import { getBrand } from '../../services/brandService'
 import { getStatus } from '../../services/statusService'
 import { getType } from '../../services/typeService'
+import Swal from 'sweetalert2';
 
 export const InventoryUpdate = () => {
 
     const { inventoryId = ''} = useParams();
-    console.log(inventoryId); 
     const [inventory, setInventory] = useState({});
     const[ formValues, setFormValues ] = useState({});
     const[ users, setUsers ] = useState([]);
@@ -73,18 +73,23 @@ export const InventoryUpdate = () => {
       listStatus();
   },[]);
 
-
-    const getInventory = async () => {
-        try {
-            const { data } = await getInventoryById(inventoryId);
-            console.log(data);
-            setInventory(data);
-            }catch(error){
-                console.log(error);
-            }
-    }
-
     useEffect(() => {
+        const getInventory = async () => {
+            try {
+                Swal.fire({
+                    allowOutsideClick: false,
+                    text: 'Loading...',
+                });
+                Swal.showLoading();
+                const { data } = await getInventoryById(inventoryId);
+                console.log(data);
+                setInventory(data);
+                Swal.close();
+                }catch(error){
+                    console.log(error);
+                    Swal.close();
+                }
+        }
         getInventory();
     }, [ inventoryId ]);
 
@@ -116,6 +121,29 @@ export const InventoryUpdate = () => {
 
     const handleOnSubmit = async(e) => {
       e.preventDefault();
+      const inventory = {serial, model, description, color, photo, transaction_date, price, user: {_id: user}, brand: {_id: brand}, equipment_type:{_id: equipment_type}, equipment_status: {_id: equipment_status}}
+      console.log(inventory);
+      try{
+        Swal.fire({
+            allowOutsideClick: false,
+            text: 'Loading...',
+        });
+        Swal.showLoading();
+        const {data} = await putInventory( inventoryId, inventory);
+        console.log(data);
+        Swal.close();
+    }catch(error){
+        console.log(error);
+        console.log(error.response.data);
+        Swal.close();
+        let message;
+        if(error && error.response && error.response.data){
+            message = error.response.data;
+        }else{
+            message = 'Something went wrong, please verify your inputs.';
+        }
+        Swal.fire('Error', message, 'error');
+    }
     }
 
 

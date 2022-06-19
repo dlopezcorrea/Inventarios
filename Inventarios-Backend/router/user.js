@@ -11,11 +11,6 @@ router.post('/', async function(req, res){
             return res.status(400).send('User already exists');
         }
 
-        const errors = validarInventory(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({errors: errors.array()});
-        }
-    
         let user = new User();
         user.name = req.body.name;
         user.email = req.body.email;
