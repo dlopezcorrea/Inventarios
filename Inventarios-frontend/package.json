@@ -12,6 +12,9 @@
 
         "react-hooks/rules-of-hooks": "error", 
         "react-hooks/exhaustive-deps": "warn" 
+     },
+     "scripts": {
+      "start": "node index.js"
      }
   }
   
