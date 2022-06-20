@@ -18,7 +18,7 @@ const App = () => {
             <Route exact path='/status' component={ StatusView }/>
             <Route exact path='/types' component={TypeView }/>
             <Route exact path='/inventory/edit/:inventoryId' component={ InventoryUpdate }/>
-            <Navigate to='/'/>
+            <Route path="/" element={<Navigate replace to="/" />} />
         </Routes>
     </Router>
 }
